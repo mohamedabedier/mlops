@@ -1,0 +1,14 @@
+# Python cache files
+__pycache__/
+*.pyc
+
+# Pytest cache
+.pytest_cache/
+
+# MLflow folders
+mlruns/
+mlartifacts/
+
+# Virtual environments 
+.venv/
+env/

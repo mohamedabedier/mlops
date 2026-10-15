@@ -1,0 +1,73 @@
+name: MLOps CI Pipeline
+# CI/CD for machinlearning is 3D
+
+# 1- Code CI 
+# -> Linting: making sure the code is clean, readable and has no typos. (grammar check for code)
+# -> Unit test: testing one logic function. if we give the split function 10 rows, does it return 8 and 2?
+#
+# 2- Data CI 
+# -> Schema checks: are all the columns we need here? 
+# -> Value bound: are the numbers making sense? a house price cannot be negative!
+#
+# 3- Model CI 
+# -> Performance gate: the boss said the error (RMSE) must be < 0.60. if the model gets 0.70, it fails! we do not push stupid models to production.
+# -> Bias testing: making sure the model is fair to everyone and not biased against specific areas or groups.
+
+
+# when to start the CI pipeline
+# when pull request/puch on main branch
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - 'feature/**' 
+
+jobs:
+  test-pipeline:
+    # download the os that the virsual server wil use
+    runs-on: ubuntu-latest
+
+    steps:
+    # pull the code from the repo and put it on the virsual server
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # Setup Python
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10" # best practice to define a static virsion
+
+    # download all the libraries that we need    
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # run linting test
+    - name: Run Code Linting (Flake8)
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings.
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    # run code test
+    - name: Run code test
+      run: |
+        pytest tests/code_test.py
+
+    # run data test if you push on main or pull request on main
+    - name: Run data test
+      if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+      run: |
+        pytest tests/data_test.py
+
+    # run model test if you push on main or pull request on main
+    - name: Run model test
+      if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+      run: |
+        pytest tests/model_test.py
