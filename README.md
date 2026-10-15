@@ -1,6 +1,6 @@
 # 🏠 House Price Prediction — MLOps Pipeline
 
-![CI](https://github.com/<username>/<repo>/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/mohamedabedier/mlops/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.10-blue)
 
 A small end-to-end MLOps project: train a house price model on the California Housing dataset, track every experiment with **MLflow**, and protect the codebase with a **3-layer CI pipeline** (Code, Data, Model) on **GitHub Actions**.
@@ -20,7 +20,6 @@ The goal is not just a good model, but a **repeatable, tested workflow** where a
 - [Running Tests](#-running-tests)
 - [CI Pipeline](#-ci-pipeline)
 - [Key Concepts](#-key-concepts)
-- [Possible Improvements](#-possible-improvements)
 
 ---
 
@@ -136,8 +135,8 @@ The results of each run are saved in MLflow. The **best run (Run 2)** is the one
 ### 1. Clone and create a virtual environment
 
 ```bash
-git clone https://github.com/<username>/<repo>.git
-cd <repo>
+git clone https://github.com/mohamedabedier/mlops.git
+cd mlops
 
 python -m venv venv
 source venv/bin/activate        # Linux / macOS
@@ -237,13 +236,3 @@ So a push to a `feature/**` branch only runs the fast checks (lint + code test),
 - **Overfitting**: the model memorizes the training data instead of learning patterns.
 - **Experiment tracking**: MLflow records params + metrics + model for every run, so runs can be compared fairly.
 - **Performance gate**: an automatic check that rejects any model worse than the agreed thresholds.
-
----
-
-## 🔮 Possible Improvements
-
-- Hyperparameter search with `GridSearchCV` or Optuna
-- Bias / fairness testing (Model CI), for example error by region
-- Cache the dataset in CI to speed up the workflow
-- Pin dependency versions in `requirements.txt`
-- Model registry and deployment (MLflow Model Registry, then serve via API)
