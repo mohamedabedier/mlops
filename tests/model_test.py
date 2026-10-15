@@ -14,7 +14,7 @@ def test_model_performance_gate():
     # train the model with my best hyperparamiters
     for exp in EXPERIMENTS_LIST:
         model, rmse, mae, r2 = train_and_evaluate(
-            x_train, x_val, y_train, y_val, 
+            X_train, X_val, y_train, y_val, 
             max_depth=exp["max_depth"], 
             learning_rate=exp["learning_rate"]
         )
