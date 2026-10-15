@@ -117,11 +117,3 @@ def test_example():
     x, y = load_real_data()
     assert len(x) == len(y)
 ```
-
----
-
-## 🔮 Ideas for More Tests
-
-- **Bias testing:** compare model error across regions (for example by latitude/longitude bins)
-- **Schema dtypes:** check that all features are numeric
-- **Prediction sanity:** predictions must be positive and within a realistic range
