@@ -91,17 +91,7 @@ def train_and_evaluate(X_train, X_val, y_train, y_val, max_depth, learning_rate)
     
     return model, rmse, mae, r2
 
-
-def main():
-    """
-    Function 3: The Maestro. Controls the flow, loops through experiments, and logs to MLflow.
-    """
-
-    # 1. Prepare Data 
-    X, y = load_real_data()
-    X_train, X_val, y_train, y_val = split_my_data(X, y)
-    
-    # 2. Define Experiments
+# 2. Define Experiments
 
     # here we set all the runs to chose only the best one
     # max_depth -> 
@@ -130,20 +120,30 @@ def main():
     # in big companies, we use AI to find the best numbers.
     # if the tool tries depth 50 and gets a bad result, it learns that this is a dead end
     # so it automatically adjusts and tries smaller numbers (like 5 or 6) without human help
-    
-    experiments = [
-        {"run_name": "Run 1", "max_depth": 3, "learning_rate": 0.1},
-        {"run_name": "Run 2", "max_depth": 5, "learning_rate": 0.05},
-        {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01},
-        # let's try that numbers and see the result 
-        {"run_name": "Run 4", "max_depth": 50, "learning_rate": 0.001},
-    ]
+
+EXPERIMENTS_LIST = [
+    {"run_name": "Run 1", "max_depth": 3, "learning_rate": 0.1},
+    {"run_name": "Run 2", "max_depth": 5, "learning_rate": 0.05},
+    {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01},
+    # let's try that numbers and see the result 
+    # {"run_name": "Run 4", "max_depth": 50, "learning_rate": 0.001},
+]
+
+
+def main():
+    """
+    Function 3: The Maestro. Controls the flow, loops through experiments, and logs to MLflow.
+    """
+
+    # 1. Prepare Data 
+    X, y = load_real_data()
+    X_train, X_val, y_train, y_val = split_my_data(X, y)
 
     # 3. Setup MLflow
     mlflow.set_experiment("House_Price_Prediction")
 
     # 4. Run and Log
-    for exp in experiments:
+    for exp in EXPERIMENTS_LIST:
         with mlflow.start_run(run_name=exp["run_name"]):
             mlflow.log_param("max_depth", exp["max_depth"])
             mlflow.log_param("learning_rate", exp["learning_rate"])
