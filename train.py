@@ -91,7 +91,6 @@ def train_and_evaluate(X_train, X_val, y_train, y_val, max_depth, learning_rate)
     
     return model, rmse, mae, r2
 
-
 # 2. Define Experiments
 
     # here we set all the runs to chose only the best one
