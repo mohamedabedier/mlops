@@ -134,7 +134,9 @@ def main():
     experiments = [
         {"run_name": "Run 1", "max_depth": 3, "learning_rate": 0.1},
         {"run_name": "Run 2", "max_depth": 5, "learning_rate": 0.05},
-        {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01}
+        {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01},
+        # let's try that numbers and see the result 
+        {"run_name": "Run 4", "max_depth": 50, "learning_rate": 0.001},
     ]
 
     # 3. Setup MLflow
