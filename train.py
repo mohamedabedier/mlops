@@ -122,9 +122,9 @@ def train_and_evaluate(X_train, X_val, y_train, y_val, max_depth, learning_rate)
     # so it automatically adjusts and tries smaller numbers (like 5 or 6) without human help
 
 EXPERIMENTS_LIST = [
-    {"run_name": "Run 1", "max_depth": 3, "learning_rate": 0.1},
+    # {"run_name": "Run 1", "max_depth": 3, "learning_rate": 0.1},
     {"run_name": "Run 2", "max_depth": 5, "learning_rate": 0.05},
-    {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01},
+    # {"run_name": "Run 3", "max_depth": 7, "learning_rate": 0.01},
     # let's try that numbers and see the result 
     # {"run_name": "Run 4", "max_depth": 50, "learning_rate": 0.001},
 ]
